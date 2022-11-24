@@ -17,7 +17,6 @@ class rental extends Model
         'ban_penggerak', 
         'bahan_bakar', 
         'audio', 
-        'aksesoris',  
         'harga'
     ];
 }

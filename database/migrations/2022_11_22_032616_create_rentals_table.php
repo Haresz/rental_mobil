@@ -23,7 +23,6 @@ return new class extends Migration
             $table->string('ban_penggerak');
             $table->string('bahan_bakar');
             $table->string('audio');
-            $table->string('aksesoris');
             $table->string('harga');
             $table->timestamps();
         });

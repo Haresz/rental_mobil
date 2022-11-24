@@ -19,11 +19,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/rentals', [RentalController::class, 'index']);
-Route::get('/rentals/{id}', [RentalController::class, 'show']);
-Route::post('/rentals', [RentalController::class, 'store']);
-Route::put('/rentals/{id}', [RentalController::class, 'update']);
-Route::delete('/rentals/{id}', [RentalController::class, 'destroy']);
+Route::get('rentals', [RentalController::class, 'index']);
+Route::get('rentals/{id}', [RentalController::class, 'show']);
+Route::post('rentals', [RentalController::class, 'store']);
+Route::put('rentals/{id}', [RentalController::class, 'update']);
+Route::delete('rentals/{id}', [RentalController::class, 'destroy']);
 
 Route::resource('rentals', RentalController::class)->except(
     ['create', 'edit']
