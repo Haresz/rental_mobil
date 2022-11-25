@@ -107,7 +107,6 @@ class RentalController extends Controller
             $rental->ban_penggerak = $request->ban_penggerak ? $request-> ban_penggerak : $rental->ban_penggerak; 
             $rental->bahan_bakar = $request->bahan_bakar ? $request-> bahan_bakar : $rental->bahan_bakar; 
             $rental->audio = $request->audio ? $request-> audio : $rental->audio; 
-            $rental->aksesoris = $request->aksesoris ? $request-> aksesoris : $rental->aksesoris; 
             $rental->harga = $request->harga ? $request-> harga : $rental->harga; 
             $rental->save();
             return response()->json([
