@@ -33,8 +33,8 @@ return new class extends Migration
      *
      * @return void
      */
-    public function down()
+    public function rental()
     {
-        Schema::dropIfExists('transaksis');
+        return $this->belongsTo(Rental::class);
     }
 };

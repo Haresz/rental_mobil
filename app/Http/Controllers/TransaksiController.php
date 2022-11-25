@@ -34,18 +34,18 @@ class RentalController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Rental $rental, Request $request)
     {
         $table = Rental::create([
-            'id_mobil' => $request->id_mobil, 
-            'warna' => $request->warna, 
-            'tahun_pembuatan' => $request->tahun_pembuatan, 
-            'transmisi' => $request->transmisi, 
-            'tempat_duduk' => $request->tempat_duduk, 
-            'ban_penggerak'=> $request->ban_penggerak, 
-            'bahan_bakar' => $request->bahan_bakar, 
-            'audio' => $request->audio, 
-            'harga'=> $request->harga
+            'id_mobil' => $rental->id, 
+            'id_user' => $request->id_user, 
+            'nama_pemesan' => $request->nama_pemesan, 
+            'harga' => $request->harga, 
+            'merek_mobil' => $request->merek_mobil, 
+            'tanggal_pembayaran'=> $request->tanggal_pembayaran, 
+            'metode_pembayaran' => $request->metode_pembayaran, 
+            'no_hp_admin' => $request->no_hp_admin, 
+            'no_hp_pemesan'=> $request->no_hp_pemesan,
         ]);
 
         return response()->json([
@@ -99,15 +99,15 @@ class RentalController extends Controller
     {
         $rental = rental::find($id);
         if($rental){
-            $rental->merek = $request->merek ? $request->merek : $rental->merek;
-            $rental->warna = $request->warna ? $request->warna : $rental->warna;
-            $rental->tahun_pembuatan = $request->tahun_pembuatan ? $request-> tahun_pembuatan : $rental->tahun_pembuatan; 
-            $rental->transmisi = $request->transmisi ? $request-> transmisi : $rental->transmisi; 
-            $rental->tempat_duduk = $request->tempat_duduk ? $request-> tempat_duduk : $rental->tempat_duduk; 
-            $rental->ban_penggerak = $request->ban_penggerak ? $request-> ban_penggerak : $rental->ban_penggerak; 
-            $rental->bahan_bakar = $request->bahan_bakar ? $request-> bahan_bakar : $rental->bahan_bakar; 
-            $rental->audio = $request->audio ? $request-> audio : $rental->audio; 
+            $rental->id_mobil = $request->id_mobil ? $request->id_mobil : $rental->id_mobil;
+            $rental->id_user = $request->id_user ? $request->id_user : $rental->id_user;
+            $rental->nama_pemesan = $request->nama_pemesan ? $request-> nama_pemesan : $rental->nama_pemesan; 
             $rental->harga = $request->harga ? $request-> harga : $rental->harga; 
+            $rental->merek_mobil = $request->merek_mobil ? $request-> merek_mobil : $rental->merek_mobil; 
+            $rental->tanggal_pembayaran = $request->tanggal_pembayaran ? $request-> tanggal_pembayaran : $rental->tanggal_pembayaran; 
+            $rental->metode_pembayaran = $request->metode_pembayaran ? $request-> metode_pembayaran : $rental->metode_pembayaran; 
+            $rental->no_hp_admin = $request->no_hp_admin ? $request-> no_hp_admin : $rental->no_hp_admin; 
+            $rental->no_hp_pemesan = $request->no_hp_pemesan ? $request-> no_hp_pemesan : $rental->no_hp_pemesan; 
             $rental->save();
             return response()->json([
                 'status' => 200,
@@ -144,3 +144,4 @@ class RentalController extends Controller
         }
     }
 }
+ 

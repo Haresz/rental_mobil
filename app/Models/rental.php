@@ -19,4 +19,5 @@ class rental extends Model
         'audio', 
         'harga'
     ];
+    
 }
