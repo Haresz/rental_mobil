@@ -14,7 +14,7 @@ class RentalController extends Controller
      */
     public function index()
     {
-        $rental = Rental::all();
+        $rental = rental::all();
         return $rental;
     }
 
@@ -36,23 +36,23 @@ class RentalController extends Controller
      */
     public function store(Request $request)
     {
-        $table = Rental::create([
-            'id_mobil' => $request->id_mobil, 
-            'warna' => $request->warna, 
-            'tahun_pembuatan' => $request->tahun_pembuatan, 
-            'transmisi' => $request->transmisi, 
-            'tempat_duduk' => $request->tempat_duduk, 
-            'ban_penggerak'=> $request->ban_penggerak, 
-            'bahan_bakar' => $request->bahan_bakar, 
-            'audio' => $request->audio, 
-            'harga'=> $request->harga
-        ]);
+        $rental = new rental();
+        $rental->merek = $request->input('merek');
+        $rental->warna = $request->input("warna");
+        $rental->tahun_pembuatan = $request->input("tahun_pembuatan");
+        $rental->transmisi = $request->input("transmisi");
+        $rental->tempat_duduk = $request->input("tempat_duduk");
+        $rental->ban_penggerak = $request->input("ban_penggerak");
+        $rental->bahan_bakar = $request->input("bahan_bakar");
+        $rental->audio = $request->input("audio");
+        $rental->harga = $request->input("harga");
+        $rental->save();
 
         return response()->json([
             'success' => 201,
-            'message' => 'data berhasil disimpan',
-            'data' => $table
-        ]);
+            'message' => 'Data berhasil tersimpan',
+            'data' => $rental
+        ], 201);
     }
 
     /**
