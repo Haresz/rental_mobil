@@ -134,7 +134,7 @@ class TransaksiController extends Controller
             $transaksi->delete();
             return response()->json([
                 'status' =>200,
-                'data' => $rental
+                'data' => $transaksi
             ],200);
         }else{
             return response()->json([
