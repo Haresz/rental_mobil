@@ -13,14 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('transaksis', function (Blueprint $table) {
+        Schema::create('transaksi', function (Blueprint $table) {
             $table->id();
             $table->string('id_mobil');
             $table->string('id_user');
             $table->string('nama_pemesan');
             $table->string('harga');
-            $table->string('merek_mobil');
-            $table->date('tanggal_pembayaran');
+            $table->string('merek');
+            $table->string('tanggal_pembayaran');
             $table->string('metode_pembayaran');
             $table->string('no_hp_admin');
             $table->string('no_hp_pemesan');
@@ -33,8 +33,8 @@ return new class extends Migration
      *
      * @return void
      */
-    public function rental()
+    public function down()
     {
-        return $this->belongsTo(Rental::class);
+        Schema::dropIfExists('transaksi');
     }
 };

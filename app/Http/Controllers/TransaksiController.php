@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Rental;
+use App\Models\Transaksis;
 
-class RentalController extends Controller
+class TransaksiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class RentalController extends Controller
      */
     public function index()
     {
-        $rental = Rental::all();
-        return $rental;
+        $transaksi = transaksis::all();
+        return $transaksi;
     }
 
     /**
@@ -34,25 +34,25 @@ class RentalController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Rental $rental, Request $request)
+    public function store(Request $request)
     {
-        $table = Rental::create([
-            'id_mobil' => $rental->id, 
-            'id_user' => $request->id_user, 
-            'nama_pemesan' => $request->nama_pemesan, 
-            'harga' => $request->harga, 
-            'merek_mobil' => $request->merek_mobil, 
-            'tanggal_pembayaran'=> $request->tanggal_pembayaran, 
-            'metode_pembayaran' => $request->metode_pembayaran, 
-            'no_hp_admin' => $request->no_hp_admin, 
-            'no_hp_pemesan'=> $request->no_hp_pemesan,
-        ]);
+        $transaksi = new transaksis();
+        $transaksi->id_mobil = $request->input('id_mobil');
+        $transaksi->id_user = $request->input("id_user");
+        $transaksi->nama_pemesan = $request->input("nama_pemesan");
+        $transaksi->harga = $request->input("harga");
+        $transaksi->merek = $request->input("merek");
+        $transaksi->tanggal_pembayaran = $request->input("tanggal_pembayaran");
+        $transaksi->metode_pembayaran = $request->input("metode_pembayaran");
+        $transaksi->no_hp_admin = $request->input("no_hp_admin");
+        $transaksi->no_hp_pemesan = $request->input("no_hp_pemesan");
+        $transaksi->save();
 
         return response()->json([
             'success' => 201,
-            'message' => 'data berhasil disimpan',
-            'data' => $table
-        ]);
+            'message' => 'Data berhasil tersimpan',
+            'data' => $transaksi
+        ], 201);
     }
 
     /**
@@ -63,17 +63,17 @@ class RentalController extends Controller
      */
     public function show($id)
     {
-        $rental = rental::find($id);
-        if ($rental){
+        $transaksi = transaksis::find($id);
+        if($transaksi){
             return response()->json([
                 'status' => 200,
-                'data' => $rental
-            ], 200);
+                'data' => $transaksi
+            ],200);
         }else{
             return response()->json([
                 'status' => 404,
-                'message' => 'id atas' . $id . 'tidak di temukan'
-            ], 404);
+                'message' => "id atas" . $id . "tidak ditemukan"
+            ],404);
         }
     }
 
@@ -97,27 +97,27 @@ class RentalController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $rental = rental::find($id);
-        if($rental){
-            $rental->id_mobil = $request->id_mobil ? $request->id_mobil : $rental->id_mobil;
-            $rental->id_user = $request->id_user ? $request->id_user : $rental->id_user;
-            $rental->nama_pemesan = $request->nama_pemesan ? $request-> nama_pemesan : $rental->nama_pemesan; 
-            $rental->harga = $request->harga ? $request-> harga : $rental->harga; 
-            $rental->merek_mobil = $request->merek_mobil ? $request-> merek_mobil : $rental->merek_mobil; 
-            $rental->tanggal_pembayaran = $request->tanggal_pembayaran ? $request-> tanggal_pembayaran : $rental->tanggal_pembayaran; 
-            $rental->metode_pembayaran = $request->metode_pembayaran ? $request-> metode_pembayaran : $rental->metode_pembayaran; 
-            $rental->no_hp_admin = $request->no_hp_admin ? $request-> no_hp_admin : $rental->no_hp_admin; 
-            $rental->no_hp_pemesan = $request->no_hp_pemesan ? $request-> no_hp_pemesan : $rental->no_hp_pemesan; 
-            $rental->save();
+        $transaksi = transaksis::find($id);
+        if($transaksi){
+            $transaksi->id_mobil = $request->id_mobil ? $request->id_mobil : $transaksi->id_mobil;
+            $transaksi->id_user = $request->id_user ? $request->id_user : $transaksi->id_user;
+            $transaksi->nama_pemesan = $request->nama_pemesan ? $request->nama_pemesan : $transaksi->nama_pemesan;
+            $transaksi->harga = $request->harga ? $request->harga : $transaksi->harga;
+            $transaksi->merek = $request->merek ? $request->merek : $transaksi->merek;
+            $transaksi->tanggal_pembayaran = $request->tanggal_pembayaran ? $request->tanggal_pembayaran : $transaksi->tanggal_pembayaran;
+            $transaksi->metode_pembayaran = $request->metode_pembayaran ? $request->metode_pembayaran : $transaksi->metode_pembayaran;
+            $transaksi->no_hp_admin = $request->no_hp_admin ? $request->no_hp_admin : $transaksi->no_hp_admin;
+            $transaksi->no_hp_pemesan = $request->no_hp_pemesan ? $request->no_hp_pemesan : $transaksi->no_hp_pemesan;
+            $transaksi->save();
             return response()->json([
                 'status' => 200,
-                'data' => $rental
+                'data' => $transaksi
             ],200);
         }else{
-            return reponse()->json([
-                'status' => 404,
-                'message' => $id . 'tidak di temukan'
-            ],404);
+            return response()->json([
+                "status" => 404,
+                "message" => $id . "tidak ditemukan"
+            ]);
         }
     }
 
@@ -129,9 +129,9 @@ class RentalController extends Controller
      */
     public function destroy($id)
     {
-        $rental =  rental::where('id', $id)->first();
-        if($rental){
-            $rental->delete();
+        $transaksi = transaksis::where('id', $id)->first();
+        if($transaksi){
+            $transaksi->delete();
             return response()->json([
                 'status' =>200,
                 'data' => $rental
@@ -144,4 +144,3 @@ class RentalController extends Controller
         }
     }
 }
- 

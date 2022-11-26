@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RentalController;
+use App\Http\Controllers\TransaksiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +26,16 @@ Route::post('rentals', [RentalController::class, 'store']);
 Route::put('rentals/{id}', [RentalController::class, 'update']);
 Route::delete('rentals/{id}', [RentalController::class, 'destroy']);
 
+Route::get('transaksis', [TransaksiController::class, 'index']);
+Route::get('transaksis/{id}', [TransaksiController::class, 'show']);
+Route::post('transaksis', [TransaksiController::class, 'store']);
+Route::put('transaksis/{id}', [TransaksiController::class, 'update']);
+Route::delete('transaksis/{id}', [TransaksiController::class, 'destroy']);
+
 Route::resource('rentals', RentalController::class)->except(
     ['create', 'edit']
-);
+);      
+Route::resource('transaksis', TransaksiController::class)->except(
+    ['create', 'edit']
+);      
 

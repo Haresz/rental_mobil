@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class transaksi extends Model
+class transaksis extends Model
 {
     use HasFactory;
     protected $fillable = [
@@ -13,10 +13,11 @@ class transaksi extends Model
         'id_user', 
         'nama_pemesan', 
         'harga', 
-        'merek_mobil', 
+        'merek', 
         'tanggal_pembayaran', 
         'metode_pembayaran', 
         'no_hp_admin', 
         'no_hp_pemesan'
     ];
+    protected $table = 'transaksis';
 }
